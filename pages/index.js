@@ -1,11 +1,14 @@
-import { Route, Link, Switch } from "react-router-dom";
-import { Redirect } from 'react-router'
+import { Route, Link, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import Head from 'next/head';
 
 function Status({ code, children }) {
   return (
     <Route
       render={({ staticContext }) => {
-        if (staticContext) staticContext.status = code;
+        if (staticContext) {
+          staticContext.status = code;
+        }
         return children;
       }}
     />
@@ -17,7 +20,14 @@ function Index() {
 }
 
 function About() {
-  return <h2>About</h2>;
+  return (
+    <React.Fragment>
+      <Head>
+        <title>Cool</title>
+      </Head>
+      <h2>About</h2>
+    </React.Fragment>
+  );
 }
 
 function Users() {
@@ -26,15 +36,15 @@ function Users() {
 
 function NotFound() {
   return (
-    <>
-      <Status code={404}/>
-      <h2>Not found</h2>;
-    </>
-  )
+    <React.Fragment>
+      <Status code={404} />
+      <h2>Not found</h2>
+    </React.Fragment>
+  );
 }
 
 function App() {
-  return(
+  return (
     <div>
       <h1>Welcome to Next.js!</h1>
       <nav>
@@ -59,7 +69,7 @@ function App() {
         <Route path="/about/" component={About} />
         <Route path="/users/" component={Users} />
         <Redirect from="/people/" to="/users/" />
-        <Route component={NotFound}/>
+        <Route component={NotFound} />
       </Switch>
     </div>
   );
